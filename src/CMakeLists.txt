@@ -1,1 +1,1 @@
-add_executable(eon main.cpp)
+add_executable(eon main.cpp damage.cpp dice.cpp)
