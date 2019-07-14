@@ -8,4 +8,4 @@
 
 #include "damage.h"
 #include "dice.h"
-#include "creature.h"
+#include "character.h"

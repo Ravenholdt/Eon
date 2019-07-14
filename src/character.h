@@ -3,7 +3,7 @@
 
 #include "damage.h"
 
-class Creature
+class Character
 {
     public:
         std::string name;
@@ -20,9 +20,9 @@ class Creature
 
         int bleed = 0;
 
-        Creature(std::string name);
+        Character(std::string name);
 
-        void attack(Creature *enemy);
+        void attack(Character *enemy);
         bool defence();
         void damageTaken(Damage attackDamage);
 };

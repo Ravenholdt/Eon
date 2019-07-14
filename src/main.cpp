@@ -6,7 +6,7 @@ int main()
     //printf("Rolling: %d\n", dice());
 
     // Create people
-    Creature h1("Arne"), h2("Gunnar");
+    Character h1("Arne"), h2("Gunnar");
 
     int round = 0;
 

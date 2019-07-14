@@ -1,1 +1,1 @@
-add_executable(eon main.cpp creature.cpp damage.cpp dice.cpp)
+add_executable(eon main.cpp character.cpp damage.cpp dice.cpp)

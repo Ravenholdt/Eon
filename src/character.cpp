@@ -1,11 +1,11 @@
-#include "creature.h"
+#include "character.h"
 
-Creature::Creature(std::string name) 
+Character::Character(std::string name) 
 {
     this->name = name;
 }
 
-void Creature::attack(Creature *enemy)
+void Character::attack(Character *enemy)
 {
     Damage damageDealt;
 
@@ -19,6 +19,7 @@ void Creature::attack(Creature *enemy)
             hitTable(&damageDealt);
             enemy->damageTaken(damageDealt);
             std::cout << this->name << " träffar " << enemy->name << " i " << damageDealt.area << " (" << damageDealt.areaSub << ")." << std::endl;
+            std::cout << "Skadevärde: " << damageDealt.damageModified << std::endl;
             std::cout << "Trauma: " << enemy->trauma << std::endl << "Smärta: " << enemy->pain << std::endl << "Blödningstakt: " << enemy->bleed << std::endl;
         }
         else
@@ -32,7 +33,7 @@ void Creature::attack(Creature *enemy)
     }
 }
 
-bool Creature::defence()
+bool Character::defence()
 {
     this->exhaustion += 1;
     if (avoid >= dice()) return true;
@@ -40,7 +41,7 @@ bool Creature::defence()
     return false;
 }
 
-void Creature::damageTaken(Damage attackDamage)
+void Character::damageTaken(Damage attackDamage)
 {
     this->trauma += attackDamage.trauma;
     this->pain += attackDamage.pain;
