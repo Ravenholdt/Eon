@@ -22,7 +22,7 @@ class Creature
 
         Creature(std::string name);
 
-        void attack(Creature enemy);
+        void attack(Creature *enemy);
         bool defence();
         void damageTaken(Damage attackDamage);
 };

@@ -14,10 +14,10 @@ int main()
         round ++;
 
         std::cout << " " << round << std::endl;
-        h1.attack(h2);
+        h1.attack(&h2);
         sleep(1);
         std::cout << "--------------------------------" << std::endl;
-        h2.attack(h1);
+        h2.attack(&h1);
         sleep(2);
         std::cout << "------------------------------";
     }
