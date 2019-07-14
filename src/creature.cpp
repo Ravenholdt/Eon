@@ -9,14 +9,17 @@ void Creature::attack(Creature enemy)
 {
     Damage damageDealt;
 
+    damageDealt.damageModified = dice(4);
     this->exhaustion += 1;
     std::cout << this->name << " attackerar " << enemy.name << "." << std::endl;
 
     if (weapon >= dice()){ // Attacker hits
         if (!enemy.defence()) // Defender fails
-        {
+        { 
             hitTable(&damageDealt);
-            std::cout << this->name << " träffar " << enemy.name << " i " << damageDealt.area << "." << std::endl;
+            enemy.damageTaken(damageDealt);
+            std::cout << this->name << " träffar " << enemy.name << " i " << damageDealt.area << " (" << damageDealt.areaSub << ")." << std::endl;
+            std::cout << "Trauma: " << enemy.trauma << std::endl << "Smärta: " << enemy.pain << std::endl << "Blödningstakt: " << enemy.bleed << std::endl;
         }
         else
         {

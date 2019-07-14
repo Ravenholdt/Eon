@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <iostream>
+#include <unistd.h>
 
 #include <string> //Strings
 
