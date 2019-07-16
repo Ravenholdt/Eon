@@ -16,7 +16,7 @@ void Character::attack(Character *enemy)
     if (weapon >= dice()){ // Attacker hits
         if (!enemy->defence()) // Defender fails
         { 
-            hitTable(&damageDealt);
+            hitTableAim(&damageDealt, hitTableAimLocation::normal);
             enemy->damageTaken(damageDealt);
             std::cout << this->name << " träffar " << enemy->name << " i " << damageDealt.area << " (" << damageDealt.areaSub << ")." << std::endl;
             std::cout << "Skadevärde: " << damageDealt.damageModified << std::endl;
@@ -24,7 +24,7 @@ void Character::attack(Character *enemy)
         }
         else
         {
-            std::cout << enemy->name << " lyckas unvika " << this->name << "s attack." << std::endl;
+            std::cout << enemy->name << " lyckas undvika " << this->name << "s attack." << std::endl;
         }
     }
     else

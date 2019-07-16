@@ -22,6 +22,7 @@ class Damage
 
         int damage = 0;
         int damageModified = 0;
+        char damageType = 'h';
 
         bool amp = false;
         bool bryt = false;
@@ -36,24 +37,6 @@ class Damage
         void addDamage(int trauma, int pain, int bleed, int blood = 0);
 };
 
-int hitTable(Damage *damage);
-int hitTableHead(Damage *damage);
-int hitTableAbdomen(Damage *damage);
-int hitTableArm(Damage *damage, bool right);
-int hitTableLeg(Damage *damage, bool right);
+enum class hitTableAimLocation{ normal, high, low, head, armLeft, armRight, chest, abdomen, legLeft, legRight };
 
-int damageTableFace(Damage *damage, char type);
-int damageTableSkull(Damage *damage, char type);
-int damageTableNeck(Damage *damage, char type);
-int damageTableChest(Damage *damage, char type);
-int damageTableStomach(Damage *damage, char type);
-int damageTableGenital(Damage *damage, char type);
-int damageTableArm(Damage *damage, char type);
-int damageTableLeg(Damage *damage, char type);
-
-void damageTableCutMarrow(Damage *damage, int type, bool leg = false);
-void damageTableCutMuscle(Damage *damage, int type, bool leg = false);
-void damageTableCutArtary(Damage *damage);
-void damageTableCutConcussion(Damage *damage, int type);
-void damageTableCutBleeding(Damage *damage, int type);
-void damageTableCutFlesh(Damage *damage, int type);
+void hitTableAim(Damage *damage, hitTableAimLocation aim);
