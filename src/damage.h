@@ -18,7 +18,7 @@ class Damage
         int bleed = 0;
         int blood = 0;
 
-        int armor[26];
+        int armour[26];
 
         int damage = 0;
         int damageModified = 0;

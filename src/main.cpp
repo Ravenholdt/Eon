@@ -1,4 +1,5 @@
 #include "main.h"
+#include "combat.h"
 
 int main()
 {
