@@ -8,7 +8,7 @@ class HitTable{
                     public:
                         void marrow(Damage *damage, int type, bool fall = false);
                         void muscle(Damage *damage, int type, bool fall = false);
-                        void artary(Damage *damage);
+                        void artery(Damage *damage);
                         void concussion(Damage *damage, int type, bool vital = false, bool fall = false);
                         void bleeding(Damage *damage, int type);
                         void flesh(Damage *damage, int type);
@@ -17,7 +17,7 @@ class HitTable{
                     public:
                         void marrow(Damage *damage, int type, bool fall = false);
                         void muscle(Damage *damage, int type, bool fall = false);
-                        void artary(Damage *damage);
+                        void artery(Damage *damage);
                         void concussion(Damage *damage, int type, bool vital = false, bool fall = false);
                         void bleeding(Damage *damage, int type);
                         void flesh(Damage *damage, int type);
@@ -26,7 +26,7 @@ class HitTable{
                     public:
                         void marrow(Damage *damage, int type, bool fall = false);
                         void muscle(Damage *damage, int type, bool fall = false);
-                        void artary(Damage *damage, int type);
+                        void artery(Damage *damage, int type);
                         void concussion(Damage *damage, int type, bool vital = false, bool fall = false);
                         void bleeding(Damage *damage, int type);
                         void flesh(Damage *damage, int type);
@@ -628,7 +628,7 @@ void HitTable::DamageTable::neck(Damage *damage){
                     damage->amp = true;
                     break;
                 case 6: // Artärblödning
-                    cut.artary(damage);
+                    cut.artery(damage);
                     break;
                 case 7: // Omtöckning
                     cut.concussion(damage, 2, true);
@@ -719,10 +719,10 @@ void HitTable::DamageTable::neck(Damage *damage){
                     damage->addDamage(dmg/2, dmg/2, dmg*2);
                     break;
                 case 5: // Artärblödning
-                    pierce.artary(damage, 1);
+                    pierce.artery(damage, 1);
                     break;
                 case 6: // Artärblödning
-                    pierce.artary(damage, 0);
+                    pierce.artery(damage, 0);
                     break;
                 case 7: // Omtöckning
                     pierce.concussion(damage, 1, true);
@@ -943,7 +943,7 @@ void HitTable::DamageTable::stomach(Damage *damage){
                     damage->amp = true;
                     break;
                 case 5: // Artärblödning
-                    cut.artary(damage);
+                    cut.artery(damage);
                     break;
                 case 6: // Omtöckning
                     cut.concussion(damage, 1);
@@ -988,7 +988,7 @@ void HitTable::DamageTable::stomach(Damage *damage){
                     damage->bryt = true;
                     break;
                 case 5: // Artärblödning
-                    crush.artary(damage);
+                    crush.artery(damage);
                     break;
                 case 6: // Omtöckning
                     crush.concussion(damage, 2);
@@ -1039,7 +1039,7 @@ void HitTable::DamageTable::stomach(Damage *damage){
                     damage->fast = true;
                     break;
                 case 6: // Artärblödning
-                    pierce.artary(damage, 1);
+                    pierce.artery(damage, 1);
                     break;
                 case 7: // Omtöckning
                     pierce.concussion(damage, 0);
@@ -1221,7 +1221,7 @@ void HitTable::DamageTable::arm(Damage *damage){
                     cut.marrow(damage, 3, false);
                     break;
                 case 3: // Artärblödning
-                    cut.artary(damage);
+                    cut.artery(damage);
                     break;
                 case 4: // Muskel/Senor
                     cut.muscle(damage, 3, false);
@@ -1304,7 +1304,7 @@ void HitTable::DamageTable::arm(Damage *damage){
                     pierce.marrow(damage, 4, false);
                     break;
                 case 2: // Artärblödning
-                    pierce.artary(damage, 1);
+                    pierce.artery(damage, 1);
                     break;
                 case 3: // Muskel/Senor
                     pierce.muscle(damage, 3, false);
@@ -1354,7 +1354,7 @@ void HitTable::DamageTable::leg(Damage *damage){
                     cut.marrow(damage, 3, true);
                     break;
                 case 3: // Artärblödning
-                    cut.artary(damage);
+                    cut.artery(damage);
                     break;
                 case 4: // Omtöckning
                     cut.muscle(damage, 3, true);
@@ -1437,7 +1437,7 @@ void HitTable::DamageTable::leg(Damage *damage){
                     pierce.marrow(damage, 4, true);
                     break;
                 case 2: // Artärblödning
-                    pierce.artary(damage, 1);
+                    pierce.artery(damage, 1);
                     break;
                 case 3: // Muskel/Senor
                     pierce.muscle(damage, 3, true);
@@ -1507,7 +1507,7 @@ void HitTable::DamageTable::Cut::muscle(Damage *damage, int type, bool fall){
     }
 }
 
-void HitTable::DamageTable::Cut::artary(Damage *damage){
+void HitTable::DamageTable::Cut::artery(Damage *damage){
     int dmg = damage->damageModified;
     // Artärblödning
     damage->areaSub.assign("Artärblödning");
@@ -1595,7 +1595,7 @@ void HitTable::DamageTable::Crush::muscle(Damage *damage, int type, bool fall){
     }
 }
 
-void HitTable::DamageTable::Crush::artary(Damage *damage){
+void HitTable::DamageTable::Crush::artery(Damage *damage){
     int dmg = damage->damageModified;
     // Artärblödning
     damage->areaSub.assign("Artärblödning");
@@ -1679,7 +1679,7 @@ void HitTable::DamageTable::Pierce::muscle(Damage *damage, int type, bool fall){
     }
 }
 
-void HitTable::DamageTable::Pierce::artary(Damage *damage, int type){
+void HitTable::DamageTable::Pierce::artery(Damage *damage, int type){
     int dmg = damage->damageModified;
     // Artärblödning
     damage->areaSub.assign("Artärblödning");
