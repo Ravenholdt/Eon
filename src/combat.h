@@ -1,6 +1,6 @@
 #include "character.h"
 
-class combat
+class Combat
 {
 private:
     /* data */
@@ -9,8 +9,10 @@ public:
     Character *attacker, *defender;
     int vinit = 0;
 
-    combat(Character *team1, Character *team2);
-    ~combat();
+    int round = 0;
 
-    void nextTurn();
+    Combat(Character *team1, Character *team2);
+    ~Combat();
+
+    bool nextTurn();
 };

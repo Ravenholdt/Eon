@@ -1,17 +1,21 @@
 #include "combat.h"
 
-combat::combat(Character *team1, Character *team2)
+Combat::Combat(Character *team1, Character *team2)
 {
     this->team1 = team1;
     this->team2 = team2;
 }
 
-combat::~combat()
+Combat::~Combat()
 {
 }
 
-void combat::nextTurn()
+bool Combat::nextTurn()
 {
+    this->round++;
+
+    std::cout << "-------------------------------- " << round << std::endl;
+
     if (!this->vinit) // If we don't have an attacker, create one.
     {
         while (this->vinit == 0)
@@ -38,4 +42,22 @@ void combat::nextTurn()
             this->attacker = buffer;
         }
     }
+
+    this->attacker->attack(this->defender);
+
+    this->attacker->tick();
+    this->defender->tick();
+
+    if (!this->attacker->alive)
+    {
+        std::cout << this->attacker->name << " is dead!" << std::endl;
+        return false;
+    }
+    if (!this->defender->alive)
+    {
+        std::cout << this->defender->name << " is dead!" << std::endl;
+        return false;
+    }
+
+    return true;
 }

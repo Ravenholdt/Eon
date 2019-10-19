@@ -11,6 +11,10 @@ Character::Character(std::string name)
     this->skill[skills::dodge] = 12;
 
     this->generate();
+
+    for (int i = 0; i < (int)damageTypes::max; i++){
+        this->damage[(damageTypes)i] = 0;
+    }
 }
 
 void Character::generate()
@@ -89,8 +93,8 @@ void Character::generate()
 
 int Character::useSkill(skills skill, int difficulty){
     int penalty = 0; 
-    penalty += this->damage[damageTypes::pain]/this->damageColumns;
-    penalty += this->exhaustion/(this->exhausionColumns*2);
+    penalty += (this->damage[damageTypes::pain] -1) / this->damageColumns;
+    penalty += (this->exhaustion -1) / (this->exhausionColumns*2);
 
     std::cout << "(" << this->name << ") Penalty: " << penalty << "(" << this->damage[damageTypes::pain] << "/" << this->exhaustion << ")" << std::endl;
 
@@ -106,7 +110,7 @@ int Character::useSkill(skills skill, int difficulty){
 
 int Character::newVinit()
 {
-    return dice() - this->vinit;
+    return this->vinit - dice();
 }
 
 void Character::attack(Character *enemy)
@@ -126,7 +130,8 @@ void Character::attack(Character *enemy)
             std::cout << "Skadevärde: " << damageDealt.damageModified << std::endl;
             std::cout << "Trauma: " << enemy->damage[damageTypes::trauma] << " (+" << damageDealt.trauma << ")" << std::endl << 
                          "Smärta: " << enemy->damage[damageTypes::pain] << " (+" << damageDealt.pain << ")" << std::endl << 
-                         "Blödningstakt: " << enemy->damage[damageTypes::bleed] << " (+" << damageDealt.bleed << ")" << std::endl;
+                         "Blödningstakt: " << enemy->damage[damageTypes::bleed] << " (+" << damageDealt.bleed << ")" << std::endl <<
+                         "Blodförlust: " << enemy->damage[damageTypes::blood] << " (" << enemy->bloodTick << "/10)" << std::endl;
         }
         else
         {
@@ -153,4 +158,71 @@ void Character::damageTaken(Damage attackDamage)
     this->damage[damageTypes::blood] += attackDamage.blood;
 
     this->damage[damageTypes::bleed] += attackDamage.bleed;
+
+    checkHealth(attackDamage.trauma, attackDamage.pain, attackDamage.blood);
+}
+
+void Character::checkHealth(int newTrauma, int newPain, int newBlood){
+    int dicePool;
+
+    if (newTrauma > 0 || newPain > 0 || newBlood > 0)
+    { // Death check
+        dicePool = 0;
+        dicePool += (this->damage[damageTypes::trauma] -1) / this->damageColumns;
+        dicePool += (this->damage[damageTypes::blood] -1) / this->damageColumns;
+
+        if (dice(dicePool) > this->chock){
+            this->alive = false;
+        }
+    }
+
+    { // Consious check
+        int change = newTrauma + newPain + newBlood;
+
+        dicePool = 0;
+        dicePool += (this->damage[damageTypes::trauma] -1) / this->damageColumns;
+        dicePool += (this->damage[damageTypes::blood] -1) / this->damageColumns;
+        dicePool += (this->damage[damageTypes::pain] -1) / this->damageColumns;
+
+        if (dice(dicePool) > this->chock) // Fail roll
+        {
+            if (change > 0) // If taking damage
+            {
+                this->conscious = false;
+            }
+        } else // Succeed roll
+        {
+            if (change < 0) // If healing
+            {
+                this->conscious = true;
+            }
+        }
+    }
+}
+
+
+
+void Character::tick(){
+    int bloodLoss = 0;
+
+    if (!this->damage[damageTypes::bleed]) return; // If not bleeing, quit.
+
+    if (this->damage[damageTypes::bleed] < 10)
+    {
+        this->bloodTick += 1;
+
+        if (this->bloodTick >= 10)
+        {
+            this->bloodTick = 0;
+            bloodLoss = 1;
+        }
+    } else {
+        bloodLoss = this->damage[damageTypes::bleed] / 10;
+    }
+
+    Damage damage;
+    damage.addDamage(0, 0, 0, bloodLoss);
+    this->damageTaken(damage);
+    
+    std::cout << this->name << ", Bloodloss: " << this->damage[damageTypes::blood] << ", (" << this->bloodTick << "/10, "<< this->damage[damageTypes::bleed] << ")" << std::endl;
 }

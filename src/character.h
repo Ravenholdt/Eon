@@ -16,6 +16,8 @@ class Character
 
         int age;
         int dateOfBirth;
+        bool alive = true;
+        bool conscious = true;
 
         int armour[26];
 
@@ -30,6 +32,9 @@ class Character
         void attack(Character *enemy);
         bool defence();
         void damageTaken(Damage attackDamage);
+        void checkHealth(int newTrauma = 0, int newPain = 0, int newBlood = 0);
+
+        void tick();
 
     private:
         std::map<attributes, int> attribute;
@@ -38,6 +43,7 @@ class Character
         std::map<skills, int> skill;
 
         std::map<damageTypes, int> damage;
+        int bloodTick = 0;
 
         int chock;
         int body;
