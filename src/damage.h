@@ -8,17 +8,17 @@
 class Damage
 {
     public:
-        std::string area;
-        std::string areaSub;
+        std::string area = "None";
+        std::string areaSub = "None";
 
-        int areaCode;
+        int areaCode = -1;
 
         int trauma = 0;
         int pain = 0;
         int bleed = 0;
         int blood = 0;
 
-        int armor[26];
+        int armour[26];
 
         int damage = 0;
         int damageModified = 0;
@@ -34,7 +34,7 @@ class Damage
         bool tappar = false;
         bool arr = false;
 
-        void addDamage(int trauma, int pain, int bleed, int blood = 0);
+        void addDamage(int trauma = 0, int pain = 0, int bleed = 0, int blood = 0);
 };
 
 enum class hitTableAimLocation{ normal, high, low, head, armLeft, armRight, chest, abdomen, legLeft, legRight };
